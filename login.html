@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | FitBeat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <style>
+      body {
+        font-family: 'Inter', sans-serif;
+    background: url('SL\ BG.webp') no-repeat center center fixed;
+    background-size: cover;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  h1 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2rem;
+    color: #ffffff;
+    text-shadow: 0 4px 15px rgba(249, 249, 249, 0.3);
+  }
+    input {
+      padding: 15px;
+      width: 250px;
+      margin-top: 20px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      background-color: #4cd137;
+      padding: 15px 30px;
+      border: none;
+      color: white;
+      font-size: 1.2em;
+      cursor: pointer;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    .container {
+    background: #1a1b1f;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 400px;
+    text-align: center;
+    align-items: center;
+    align-content: center;
+    }
+  .signup-btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 9999px;
+    background: linear-gradient(135deg, #FF416C, #FF4B2B);
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 15px rgba(255, 65, 108, 0.3);
+  }
+
+  .signup-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 20px rgba(255, 65, 108, 0.4);
+  }
+  .footer-text {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #777;
+    text-shadow: 0 4px 15px #777(255, 65, 108, 0.3);
+  }
+  .footer-text a {
+    color: #FF416C;
+    text-decoration: none;
+  }
+  .footer-text a:hover {
+    text-decoration: underline;
+  }
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    font-size: 1rem;
+  }
+  * {
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Login To FitBeat</h1>
+        <input type="email" id="email" placeholder="Email" /><br />
+        <input type="password" id="password" placeholder="Password" /><br />
+        <button class="signup-btn" onclick="login()">Login To FitBeat</button>
+        <p class="footer-text">Don't have an account? <a href="signup.html">Signup here</a></p>
+    </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyB-WDNqc5zlk0aFt4QeXsikviinfbutuS0",
+      authDomain: "fitbeat-164b4.firebaseapp.com",
+      projectId: "fitbeat-164b4",
+      storageBucket: "fitbeat-164b4.firebasestorage.app",
+      messagingSenderId: "994360212691",
+      appId: "1:994360212691:web:9e4fd5abe4b41b09cce826"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    function login() {
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      firebase.auth().signInWithEmailAndPassword(email, password)
+        .then(userCredential => {
+          window.location.href = 'dashboard.html';
+        })
+        .catch(error => {
+          alert(error.message);
+        });
+    }
+  </script>
+</body>
+</html>

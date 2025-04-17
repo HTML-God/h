@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+  <link rel="icon" href="favicon.png" type="image/x-icon">
+<head>
+  <div class="navbar">
+    <h1 id="name" class="name">fitbeat</h1>
+    <div class="nav-buttons">
+        <a href="index.html" >Home</a>
+        <a href="login.html" >Login</a>
+        <a href="signup.html" >Sign Up</a>
+        <a href="contact.html" >Contact</a>
+    </div>
+</div>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FitBeat | Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@mediapipe/holistic/holistic.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <style>
+    .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #ff5733;
+    color: white;
+    padding: 15px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+.navbar img {
+    height: 50px;
+}
+.nav-buttons {
+    display: flex;
+    gap: 10px;
+}
+.nav-buttons a {
+    padding: 8px 15px;
+    background: white;
+    color: #ff5733;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: bold;
+}
+.container {
+    margin: 50px auto;
+    max-width: 800px;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+.buttons img {
+    width: 150px;
+    margin: 10px;
+}
+.testimonial {
+    font-style: italic;
+    margin-top: 20px;
+}
+.contact {
+    margin-top: 30px;
+}
+input, textarea {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+button {
+    background: #ff5733;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+button:hover {
+    background: #e64a19;
+}
+.name {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 200;
+}
+    :root {
+      --bg: #0e0f13;
+      --card: rgba(255, 255, 255, 0.05);
+      --highlight: #4cd137;
+      --text: #f5f6fa;
+      --shadow: rgba(0, 0, 0, 0.5);
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0px;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      padding: 20px;
+    }
+    .dashboard {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      padding: 10px;
+    }
+    .card {
+      background: var(--card);
+      backdrop-filter: blur(12px);
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px var(--shadow);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .card h2 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .card p, .card ul {
+      font-size: 18px;
+      margin: 0;
+    }
+    ul {
+      padding: 0;
+      list-style: none;
+      width: 100%;
+    }
+    .achievement-entry {
+      background: rgba(255,255,255,0.15);
+      margin: 8px 0;
+      padding: 12px 18px;
+      border-radius: 8px;
+      font-size: 16px;
+      text-align: left;
+      position: relative;
+      overflow: hidden;
+    }
+    .achievement-entry::after {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: -1;
+    }
+    #camera {
+      width: 100%;
+      border-radius: 15px;
+      margin-top: 10px;
+    }
+    canvas {
+      width: 100% !important;
+      height: 250px !important;
+    }
+    img {
+    height: 75px;
+    width: 75px;
+    text-decoration: none;
+}
+footer {
+    background-color: black;
+}
+    a {
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+    text-decoration-color: #ddd;
+}
+h2 {
+    text-decoration: none;
+    text-align: center;
+    padding-left: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px;
+    color: azure;
+    list-style: circle;
+    padding-top: 15px;
+
+}
+  </style>
+</head>
+<body>
+  <div class="dashboard">
+    <div class="card">
+      <h2>🚪 Steps</h2>
+      <p id="steps">0</p>
+    </div>
+    <div class="card">
+      <h2>🔥 Calories Burned</h2>
+      <p id="calories">0 kcal</p>
+    </div>
+    <div class="card">
+      <h2>🌟 Achievements</h2>
+      <ul id="achievements"></ul>
+    </div>
+    <div class="card">
+      <h2>📹 Push-up Tracker</h2>
+      <p id="pushups">Push-ups: 0</p>
+      <video id="camera" autoplay muted playsinline></video>
+    </div>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyB-WDNqc5zlk0aFt4QeXsikviinfbutuS0",
+      authDomain: "fitbeat-164b4.firebaseapp.com",
+      projectId: "fitbeat-164b4",
+      storageBucket: "fitbeat-164b4.firebasestorage.app",
+      messagingSenderId: "994360212691",
+      appId: "1:994360212691:web:9e4fd5abe4b41b09cce826"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+    const auth = firebase.auth();
+
+    // Fetch user data from Firebase
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const userRef = db.collection('users').doc(user.uid);
+        const doc = await userRef.get();
+        const data = doc.data();
+
+        document.getElementById('steps').textContent = data.steps || 0;
+        document.getElementById('calories').textContent = `${data.calories || 0} kcal`;
+        document.getElementById('pushups').textContent = `Push-ups: ${data.pushups || 0}`;
+
+        const achievementsList = document.getElementById('achievements');
+        achievementsList.innerHTML = '';
+        (data.achievements || []).forEach(a => {
+          const li = document.createElement('li');
+          li.className = 'achievement-entry';
+          li.textContent = a;
+          achievementsList.appendChild(li);
+          confetti({ origin: { y: 0.6 }, spread: 60 });
+        });
+      }
+    });
+  </script>
+</body>
+</html>

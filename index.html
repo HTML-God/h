@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FitBeat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f5f6fa;
+      color: #333;
+      text-align: center;
+      padding: 50px;
+    }
+    h1 {
+      font-size: 3em;
+    }
+    button {
+      background-color: #4cd137;
+      padding: 15px 30px;
+      border: none;
+      color: white;
+      font-size: 1.2em;
+      cursor: pointer;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to FitBeat</h1>
+  <button onclick="window.location.href='login.html'">Login</button>
+  <button onclick="window.location.href='signup.html'">Sign Up</button>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyB-WDNqc5zlk0aFt4QeXsikviinfbutuS0",
+      authDomain: "fitbeat-164b4.firebaseapp.com",
+      projectId: "fitbeat-164b4",
+      storageBucket: "fitbeat-164b4.firebasestorage.app",
+      messagingSenderId: "994360212691",
+      appId: "1:994360212691:web:9e4fd5abe4b41b09cce826"
+    };
+    firebase.initializeApp(firebaseConfig);
+  </script>
+</body>
+</html>
