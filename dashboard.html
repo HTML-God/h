@@ -253,6 +253,56 @@ h2 {
         });
       }
     });
+    // Ask for motion access on iOS
+if (typeof DeviceMotionEvent.requestPermission === 'function') {
+  DeviceMotionEvent.requestPermission()
+    .then(permissionState => {
+      if (permissionState === 'granted') {
+        initStepCounter();
+      }
+    })
+    .catch(console.error);
+} else {
+  // Android or browser that doesn’t need permission
+  initStepCounter();
+}
+
+// Step Counter Logic
+let lastStepTime = 0;
+let stepCount = 0;
+
+function initStepCounter() {
+  window.addEventListener('devicemotion', (event) => {
+    const acceleration = event.accelerationIncludingGravity;
+    const accMagnitude = Math.sqrt(
+      acceleration.x ** 2 + acceleration.y ** 2 + acceleration.z ** 2
+    );
+
+    const currentTime = new Date().getTime();
+
+    // Detect peaks for steps
+    if (accMagnitude > 12 && (currentTime - lastStepTime) > 500) {
+      lastStepTime = currentTime;
+      stepCount++;
+      document.getElementById('steps').textContent = stepCount;
+
+      // 🔔 Vibrate on step (50ms)
+      if (navigator.vibrate) {
+        navigator.vibrate(50);
+      }
+
+      updateFirebaseSteps(stepCount);
+    }
+  });
+}
+
+function updateFirebaseSteps(count) {
+  const user = firebase.auth().currentUser;
+  if (!user) return;
+  const userRef = firebase.firestore().collection('users').doc(user.uid);
+  userRef.set({ steps: count }, { merge: true });
+}
+
   </script>
 </body>
 </html>
